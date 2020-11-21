@@ -1,10 +1,24 @@
 mod utils;
 
-use wasm_bindgen::prelude::*;
-use bin_packer_3d::bin::Bin;
-use bin_packer_3d::item::Item;
-use bin_packer_3d::packing_algorithm::packing_algorithm;
 use crate::utils::set_panic_hook;
+use bin_packer_3d::bin::Bin as BinBp;
+use bin_packer_3d::item::Item as ItemBp;
+use bin_packer_3d::packing_algorithm::packing_algorithm;
+use js_sys::Object;
+use serde::{Deserialize, Serialize};
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
+
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
+struct Bin {
+    dims: [u32; 3],
+}
+
+#[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
+struct Item {
+    id: String,
+    dims: [u32; 3],
+}
 
 extern crate web_sys;
 
@@ -28,7 +42,7 @@ pub fn setup() {
 }
 
 #[wasm_bindgen]
-extern {
+extern "C" {
     fn alert(s: &str);
 }
 
@@ -45,14 +59,19 @@ impl BinPacker {
     pub fn new() -> Self {
         log!("creating the bin packer!");
 
-        let deck = Item::new("deck", [2, 8, 12]);
-        let die = Item::new("die", [8, 8, 8]);
+        let deck = ItemBp::new("deck", [2, 8, 12]);
+        let die = ItemBp::new("die", [8, 8, 8]);
         let items = vec![deck, deck, die, deck, deck];
         log!("items: {:?}", items);
 
-        let _packed_items = packing_algorithm(Bin::new([8, 8, 12]), &items);
+        let _packed_items = packing_algorithm(BinBp::new([8, 8, 12]), &items);
         Self {}
     }
+
+    pub fn packing_algorithm(bin: &JsValue, items: &JsValue) -> JsValue {
+        let bin: Bin = bin.into_serde().unwrap();
+        let items: Vec<Item> = items.into_serde().unwrap();
+        let bins = vec![items];
+        JsValue::from_serde(&bins).unwrap()
+    }
 }
-
-
