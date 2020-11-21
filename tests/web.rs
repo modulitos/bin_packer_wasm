@@ -36,10 +36,7 @@ pub fn test_packing_algorithm() {
 
     let expected = JSON::parse(r#"[
         [
-            {
-                "id": "asdf",
-                "dims": [1,2,3]
-            }
+            "asdf"
         ]
     ]"#).unwrap();
 

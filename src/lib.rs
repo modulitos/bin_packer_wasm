@@ -9,15 +9,34 @@ use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
 
-#[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
+type Dimension = f64;
+
+#[derive(Serialize, Deserialize, Debug)]
 struct Bin {
-    dims: [u32; 3],
+    dims: [Dimension; 3],
 }
 
-#[derive(Serialize, Deserialize, Debug, Eq, PartialEq)]
+impl From<Bin> for BinBp<'_> {
+    fn from(bin: Bin) -> Self {
+        Self::new(bin.dims)
+    }
+}
+
+type ItemId = String;
+
+#[derive(Serialize, Deserialize, Debug)]
 struct Item {
-    id: String,
-    dims: [u32; 3],
+    id: ItemId,
+    dims: [Dimension; 3],
+}
+
+impl From<ItemBp<'_>> for Item {
+    fn from(item: ItemBp)   -> Self {
+        Self {
+            id: item.id.into(),
+            dims: item.block.dims
+        }
+    }
 }
 
 extern crate web_sys;
@@ -69,9 +88,14 @@ impl BinPacker {
     }
 
     pub fn packing_algorithm(bin: &JsValue, items: &JsValue) -> JsValue {
-        let bin: Bin = bin.into_serde().unwrap();
-        let items: Vec<Item> = items.into_serde().unwrap();
-        let bins = vec![items];
-        JsValue::from_serde(&bins).unwrap()
+        let bin: BinBp = bin.into_serde::<Bin>().unwrap().into();
+        let items: Vec<Item> = items.into_serde::<Vec<Item>>().unwrap();
+        let items: Vec<ItemBp> = items.iter().map(|item: &Item| {
+            ItemBp::new(&item.id, item.dims)
+        }).collect();
+
+        let items_res = packing_algorithm(bin, &items).unwrap();
+
+        JsValue::from_serde(&items_res).unwrap()
     }
 }
