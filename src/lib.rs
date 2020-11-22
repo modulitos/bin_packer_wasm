@@ -1,6 +1,7 @@
+pub mod error;
 mod utils;
-mod error;
 
+use crate::error::MyError;
 use crate::utils::set_panic_hook;
 use bin_packer_3d::bin::Bin as BinBp;
 use bin_packer_3d::item::Item as ItemBp;
@@ -9,7 +10,6 @@ use js_sys::Object;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use crate::error::MyError;
 
 type Dimension = f64;
 
@@ -21,16 +21,6 @@ macro_rules! log {
         web_sys::console::log_1(&format!( $( $t )*).into());
     }
 }
-
-// If we want to raise a native JS error:
-// #[wasm_bindgen]
-// extern "C" {
-//     #[wasm_bindgen(js_name = Error)]
-//     type JsError;
-//
-//     #[wasm_bindgen(constructor, js_class = "Error")]
-//     fn new(message: &str) -> JsError;
-// }
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Bin {
@@ -60,7 +50,6 @@ static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 #[wasm_bindgen]
 pub fn setup() {
     set_panic_hook();
-    log!("setup complete!");
 }
 
 #[wasm_bindgen]
