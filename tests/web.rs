@@ -6,7 +6,7 @@ extern crate wasm_bindgen_test;
 use js_sys::{Object, JSON};
 use wasm_bindgen::JsValue;
 use wasm_bindgen_test::*;
-use wasm_previewer::BinPacker;
+use wasm_previewer::{BinPacker, setup};
 
 wasm_bindgen_test_configure!(run_in_browser);
 
@@ -16,13 +16,8 @@ fn pass() {
 }
 
 #[wasm_bindgen_test]
-pub fn test_bin_pack() {
-    let _bp = BinPacker::new();
-    assert_eq!(1, 1);
-}
-
-#[wasm_bindgen_test]
 pub fn test_packing_algorithm() {
+    setup();
     let bin = JSON::parse(r#"{
         "dims": [1,2,3]
     }"#)
@@ -41,7 +36,7 @@ pub fn test_packing_algorithm() {
     ]"#).unwrap();
 
     assert_eq!(
-        JSON::stringify(&BinPacker::packing_algorithm(&bin, &items)),
+        JSON::stringify(&BinPacker::packing_algorithm(&bin, &items).unwrap()),
         JSON::stringify(&expected),
     );
 }

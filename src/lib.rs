@@ -1,4 +1,5 @@
 mod utils;
+mod error;
 
 use crate::utils::set_panic_hook;
 use bin_packer_3d::bin::Bin as BinBp;
@@ -8,8 +9,28 @@ use js_sys::Object;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
+use crate::error::MyError;
 
 type Dimension = f64;
+
+extern crate web_sys;
+
+// A macro to provide `println!(..)`-style syntax for `console.log` logging.
+macro_rules! log {
+    ( $( $t:tt )* ) => {
+        web_sys::console::log_1(&format!( $( $t )*).into());
+    }
+}
+
+// If we want to raise a native JS error:
+// #[wasm_bindgen]
+// extern "C" {
+//     #[wasm_bindgen(js_name = Error)]
+//     type JsError;
+//
+//     #[wasm_bindgen(constructor, js_class = "Error")]
+//     fn new(message: &str) -> JsError;
+// }
 
 #[derive(Serialize, Deserialize, Debug)]
 struct Bin {
@@ -28,24 +49,6 @@ type ItemId = String;
 struct Item {
     id: ItemId,
     dims: [Dimension; 3],
-}
-
-impl From<ItemBp<'_>> for Item {
-    fn from(item: ItemBp)   -> Self {
-        Self {
-            id: item.id.into(),
-            dims: item.block.dims
-        }
-    }
-}
-
-extern crate web_sys;
-
-// A macro to provide `println!(..)`-style syntax for `console.log` logging.
-macro_rules! log {
-    ( $( $t:tt )* ) => {
-        web_sys::console::log_1(&format!( $( $t )*).into());
-    }
 }
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -70,32 +73,37 @@ pub fn greet() {
     alert("Hello, wasm-previewer!");
 }
 
+fn js_value_to_bin(val: &JsValue) -> Result<Bin, JsValue> {
+    val.into_serde::<Bin>()
+        .map_err(|err| error_to_js_value(MyError::BadJson(err)))
+}
+
+fn js_value_to_items(val: &JsValue) -> Result<Vec<Item>, JsValue> {
+    val.into_serde::<Vec<Item>>()
+        .map_err(|err| error_to_js_value(MyError::BadJson(err)))
+}
+
+fn error_to_js_value(err: MyError) -> JsValue {
+    JsValue::from_str(&err.to_string())
+}
+
 #[wasm_bindgen]
 pub struct BinPacker {}
 
 #[wasm_bindgen]
 impl BinPacker {
-    pub fn new() -> Self {
-        log!("creating the bin packer!");
+    pub fn packing_algorithm(bin: &JsValue, items: &JsValue) -> Result<JsValue, JsValue> {
+        let bin = js_value_to_bin(bin)?;
+        let items = js_value_to_items(items)?;
+        let items: Vec<ItemBp<'_>> = items
+            .iter()
+            // TODO: Simplfy this by removing the lifetime from ItemBp...
+            .map(|item: &Item| ItemBp::new(&item.id, item.dims))
+            .collect();
 
-        let deck = ItemBp::new("deck", [2, 8, 12]);
-        let die = ItemBp::new("die", [8, 8, 8]);
-        let items = vec![deck, deck, die, deck, deck];
-        log!("items: {:?}", items);
+        let items_res = packing_algorithm(bin.into(), &items)
+            .map_err(|err| error_to_js_value(MyError::BinPackError(err)))?;
 
-        let _packed_items = packing_algorithm(BinBp::new([8, 8, 12]), &items);
-        Self {}
-    }
-
-    pub fn packing_algorithm(bin: &JsValue, items: &JsValue) -> JsValue {
-        let bin: BinBp = bin.into_serde::<Bin>().unwrap().into();
-        let items: Vec<Item> = items.into_serde::<Vec<Item>>().unwrap();
-        let items: Vec<ItemBp> = items.iter().map(|item: &Item| {
-            ItemBp::new(&item.id, item.dims)
-        }).collect();
-
-        let items_res = packing_algorithm(bin, &items).unwrap();
-
-        JsValue::from_serde(&items_res).unwrap()
+        JsValue::from_serde(&items_res).map_err(|err| error_to_js_value(MyError::BadJson(err)))
     }
 }
