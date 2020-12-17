@@ -3,5 +3,5 @@
 // that no one else needs to worry about it again.
 //
 // https://github.com/rustwasm/rust-webpack-template/issues/43
-import("./index.ts")
+import("./index.tsx")
   .catch(e => console.error("Error importing `index.ts`:", e));

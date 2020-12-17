@@ -27,7 +27,9 @@
   },
   "homepage": "https://github.com/rustwasm/create-wasm-app#readme",
   "dependencies": {
+    "@types/react-dom": "^17.0.0",
     "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "wasm-previewer": "file:../pkg"
   },
   "devDependencies": {
