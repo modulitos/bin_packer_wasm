@@ -27,7 +27,7 @@ struct Bin {
     dims: [Dimension; 3],
 }
 
-impl From<Bin> for BinBp<'_> {
+impl From<Bin> for BinBp {
     fn from(bin: Bin) -> Self {
         Self::new(bin.dims)
     }
@@ -62,14 +62,19 @@ pub fn greet() {
     alert("Hello, wasm-previewer!");
 }
 
-fn js_value_to_bin(val: &JsValue) -> Result<Bin, JsValue> {
-    val.into_serde::<Bin>()
-        .map_err(|err| error_to_js_value(MyError::BadJson(err)))
+fn js_value_to_bin(val: &JsValue) -> Result<BinBp, JsValue> {
+    let bin = val
+        .into_serde::<Bin>()
+        .map_err(|err| error_to_js_value(MyError::BadJson(err)))?;
+    Ok(bin.into())
 }
 
-fn js_value_to_items(val: &JsValue) -> Result<Vec<Item>, JsValue> {
-    val.into_serde::<Vec<Item>>()
-        .map_err(|err| error_to_js_value(MyError::BadJson(err)))
+fn js_value_to_items(val: &JsValue) -> Result<Vec<ItemBp>, JsValue> {
+    Ok(val.into_serde::<Vec<Item>>()
+        .map_err(|err| error_to_js_value(MyError::BadJson(err)))?
+        .iter()
+        .map(|item: &Item| ItemBp::new(&item.id, item.dims))
+        .collect())
 }
 
 fn error_to_js_value(err: MyError) -> JsValue {
@@ -84,13 +89,9 @@ impl BinPacker {
     pub fn packing_algorithm(bin: &JsValue, items: &JsValue) -> Result<JsValue, JsValue> {
         let bin = js_value_to_bin(bin)?;
         let items = js_value_to_items(items)?;
-        let items: Vec<ItemBp<'_>> = items
-            .iter()
-            // TODO: Simplfy this by removing the lifetime from ItemBp...
-            .map(|item: &Item| ItemBp::new(&item.id, item.dims))
-            .collect();
-
-        let items_res = packing_algorithm(bin.into(), &items)
+        println!("calling into packing algorithm!!!");
+        log!("logging!!!");
+        let items_res = packing_algorithm(bin, &items)
             .map_err(|err| error_to_js_value(MyError::BinPackError(err)))?;
 
         JsValue::from_serde(&items_res).map_err(|err| error_to_js_value(MyError::BadJson(err)))
