@@ -1,4 +1,3 @@
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 const path = require('path');
 
 module.exports = {
@@ -21,6 +20,7 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js', '.wasm' ],
   },
   output: {
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
   },
 };
