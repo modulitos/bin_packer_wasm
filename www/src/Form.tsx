@@ -1,23 +1,81 @@
-import React, { FC, useState } from "react";
+import React, {
+  Dispatch,
+  DispatchWithoutAction,
+  FC,
+  useReducer,
+  useState,
+} from "react";
 import { BinPacker, setup } from "wasm-previewer";
-import { PackedItem, Item } from "./BinPackerInterfaces";
+import { PackedItem, Item, Bin } from "./BinPackerInterfaces";
 import ItemInput from "./ItemInput";
+
+enum types {
+  UPDATE_ITEM,
+  UPDATE_BIN,
+}
+
+interface State {
+  items: Item[];
+  bin: Bin;
+}
+
+type Action =
+  | { type: types.UPDATE_ITEM; results: { item: Item; i: number } }
+  | { type: types.UPDATE_BIN; results: Bin };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case types.UPDATE_ITEM: {
+      const i = action.results.i;
+      return {
+        ...state,
+        items: [
+          ...state.items.slice(0, i),
+          action.results.item,
+          ...state.items.slice(i + 1),
+        ],
+      };
+    }
+    case types.UPDATE_BIN: {
+      return {
+        ...state,
+        bin: action.results,
+      };
+    }
+  }
+}
 
 type FormProps = {
   onPack: (packedBins: PackedItem[][]) => void;
 };
 
 const Form: FC<FormProps> = ({ onPack }) => {
-  setup();
-  const [items, setItemQuantity] = useState<Item[]>([
+  // Suppressing false TS compiler error (IDE issue with jetbrains):
+  // https://intellij-support.jetbrains.com/hc/en-us/community/posts/115000502410-Typescript-inspections-fail-invalid-number-of-arguments
+  //
+  // noinspection TypeScriptValidateTypes
+  const [state, dispatch]: [State, Dispatch<Action>] = React.useReducer(
+    reducer,
     {
-      height: 1,
-      width: 1,
-      length: 1,
-      id: "test item",
-      quantity: 12,
+      items: [
+        {
+          height: 1,
+          width: 1,
+          length: 1,
+          id: "test item",
+          quantity: 12,
+        },
+      ],
+      bin: {
+        height: 1,
+        width: 1,
+        length: 1,
+      },
     },
-  ]);
+  );
+
+  // make this call only on mount:
+  setup();
 
   const packBins = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -46,12 +104,16 @@ const Form: FC<FormProps> = ({ onPack }) => {
     <form className="grid grid-flow-row grid-cols-1 gap-4 mx-4 my-8">
       <h1 className="font-sans font-bold text-3xl">{`Your Items:`}</h1>
       <ItemInput
-        setHeight={console.log}
-        setLength={console.log}
-        setWidth={console.log}
-        setQuantity={console.log}
-        setId={console.log}
-        item={items[0]}
+        onUpdate={(newItem: Item) =>
+          dispatch({
+            type: types.UPDATE_ITEM,
+            results: {
+              item: newItem,
+              i: 0,
+            },
+          })
+        }
+        item={state.items[0]}
         keyI={0}
       />
       {/*{`Your Bin:`}*/}

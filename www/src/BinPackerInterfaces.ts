@@ -6,6 +6,12 @@ export interface PackedItem {
 
 export type PackedBin  = PackedItem[];
 
+export interface Bin {
+  height: number;
+  length: number;
+  width: number;
+}
+
 export interface Item {
   id: string;
   height: number;

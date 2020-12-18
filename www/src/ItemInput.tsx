@@ -2,32 +2,21 @@ import React, { FC } from "react";
 import { Item } from "./BinPackerInterfaces";
 
 type ItemInputProps = {
-  setHeight: Function;
-  setWidth: Function;
-  setLength: Function;
-  setId: Function;
-  setQuantity: Function;
+  onUpdate: Function;
   // TODO: include a remove button:
-  // delete: Function;
+  // onDelete: Function;
   item: Item;
   keyI: number;
 };
 
-const ItemInput: FC<ItemInputProps> = ({
-  setHeight,
-  setWidth,
-  setLength,
-  setId,
-  setQuantity,
-  item,
-  keyI,
-}) => {
+const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
   const inputGroupClasses = "grid grid-flow-row";
   const label_classes =
     "font-bold text-gray-600 text-xs leading-8 uppercase h-6 mx-2 mt-3";
   const input_classes = "bg-gray-200 shadow-inner rounded-l p-2";
   const textOverride = { maxWidth: "8rem" };
   const numOverride = { maxWidth: "6rem" };
+  // TODO: better styles: https://css-tricks.com/style-form-tailwind-css/ and validation of form fields
   return (
     <div className="grid grid-flow-row grid-cols-5">
       <div className={inputGroupClasses}>
@@ -39,10 +28,16 @@ const ItemInput: FC<ItemInputProps> = ({
           className={input_classes}
           style={textOverride}
           id={`id_${keyI}`}
+          required
           type="text"
           placeholder="Enter your item's id"
           value={item.id}
-          onChange={(e) => setId(e.target.value)}
+          onChange={(e) => {
+            onUpdate({
+              ...item,
+              id: e.target.value,
+            });
+          }}
         />
       </div>
       <div className={inputGroupClasses}>
@@ -53,12 +48,18 @@ const ItemInput: FC<ItemInputProps> = ({
         <input
           className={input_classes}
           style={numOverride}
+          required={true}
           id={`height_${keyI}`}
           type="number"
           step={0.1}
           placeholder="Enter your item's height"
           value={item.height}
-          onChange={(e) => setHeight(e.target.value)}
+          onChange={(e) =>
+            onUpdate({
+              ...item,
+              height: e.target.value,
+            })
+          }
         />
       </div>
       <div className={inputGroupClasses}>
@@ -74,7 +75,12 @@ const ItemInput: FC<ItemInputProps> = ({
           step={0.1}
           placeholder="Enter your item's length"
           value={item.length}
-          onChange={(e) => setLength(e.target.value)}
+          onChange={(e) =>
+            onUpdate({
+              ...item,
+              length: e.target.value,
+            })
+          }
         />
       </div>
       <div className={inputGroupClasses}>
@@ -90,7 +96,12 @@ const ItemInput: FC<ItemInputProps> = ({
           step={0.1}
           placeholder="Enter your item's width"
           value={item.width}
-          onChange={(e) => setWidth(e.target.value)}
+          onChange={(e) =>
+            onUpdate({
+              ...item,
+              width: e.target.value,
+            })
+          }
         />
       </div>
 
@@ -106,7 +117,12 @@ const ItemInput: FC<ItemInputProps> = ({
           type="number"
           placeholder="Enter the quantity"
           value={item.quantity}
-          onChange={(e) => setQuantity(e.target.value)}
+          onChange={(e) =>
+            onUpdate({
+              ...item,
+              quantity: e.target.value,
+            })
+          }
         />
       </div>
     </div>
