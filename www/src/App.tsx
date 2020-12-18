@@ -1,6 +1,7 @@
 import React from "react";
 import { BinPacker, setup } from "wasm-previewer";
 import { default as ResultsVisualizer, PackedItem } from "./ResultsVisualizer";
+import Form from "./Form";
 
 function App() {
   console.log("All modules loaded");
@@ -24,10 +25,10 @@ function App() {
     "bin packer failed!!!",
   );
   return (
-    <React.Fragment>
-      {`Results: `}
+    <div className="container inline-grid gap-x-4 grid-cols-2">
       <ResultsVisualizer packedBins={packedBins} />
-    </React.Fragment>
+      <Form />
+    </div>
   );
 }
 
