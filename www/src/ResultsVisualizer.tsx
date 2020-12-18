@@ -18,7 +18,7 @@ const ResultsVisualizer: React.FC<ResultsVisualizerProps> = ({
       {packedBins.map((bin: PackedItem[], bin_index) => {
         return (
           <div className="p-2" key={bin_index}>
-            {`Bin #${bin_index + 1}:`}
+            {`Bin #${bin_index + 1}, ${bin.length} item(s):`}
             {bin.map((item: PackedItem, item_index) => {
               return (
                 <div className="p-4" key={item_index}>

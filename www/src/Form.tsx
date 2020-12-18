@@ -1,6 +1,6 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { BinPacker, setup } from "wasm-previewer";
-import { PackedItem } from "./BinPackerInterfaces";
+import { PackedItem, Item } from "./BinPackerInterfaces";
 import ItemInput from "./ItemInput";
 
 type FormProps = {
@@ -9,10 +9,7 @@ type FormProps = {
 
 const Form: FC<FormProps> = ({ onPack }) => {
   setup();
-  const [itemId, setItemId] = useState("");
-  const [itemQuantity, setItemQuantity] = useState("");
-
-  const items = [
+  const [items, setItemQuantity] = useState<Item[]>([
     {
       height: 1,
       width: 1,
@@ -20,7 +17,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
       id: "test item",
       quantity: 12,
     },
-  ];
+  ]);
 
   const packBins = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -46,8 +43,8 @@ const Form: FC<FormProps> = ({ onPack }) => {
   };
 
   return (
-    <form className="grid grid-flow-row grid-cols-1 gap-4">
-      {`Your Items:`}
+    <form className="grid grid-flow-row grid-cols-1 gap-4 mx-4 my-8">
+      <h1 className="font-sans font-bold text-3xl">{`Your Items:`}</h1>
       <ItemInput
         setHeight={console.log}
         setLength={console.log}
@@ -68,7 +65,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
       {/*  onChange={(e) => console.log(e.target.value)}*/}
       {/*/>*/}
       <button
-        className="bg-blue-600 hover:bg-blue-700 duration-300 text-white shadow p-2 rounded-r"
+        className="bg-blue-600 hover:bg-blue-700 duration-300 text-white shadow p-2 rounded-r max-w-lg justify-self-center"
         type="submit"
         onClick={(e) => packBins(e)}
       >
