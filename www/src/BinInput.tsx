@@ -5,6 +5,7 @@ type BinInputProps = {
   onUpdate: Function;
   bin: Bin;
 };
+
 const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
   // TODO: DRY up this CSS with ItemInput:
   const inputGroupClasses = "grid grid-flow-row pr-8";
@@ -31,7 +32,7 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           onChange={(e) => {
             onUpdate({
               ...bin,
-              height: e.target.value,
+              height: parseInt(e.target.value),
             });
           }}
         />
@@ -52,7 +53,7 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           onChange={(e) => {
             onUpdate({
               ...bin,
-              length: e.target.value,
+              length: parseInt(e.target.value),
             });
           }}
         />
@@ -73,7 +74,7 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           onChange={(e) => {
             onUpdate({
               ...bin,
-              width: e.target.value,
+              width: parseInt(e.target.value),
             });
           }}
         />

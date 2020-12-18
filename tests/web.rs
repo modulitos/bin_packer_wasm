@@ -16,6 +16,18 @@ use wasm_previewer::{error::MyError, setup, BinPacker};
 wasm_bindgen_test_configure!(run_in_browser);
 
 #[wasm_bindgen_test]
+pub fn test_parse_float() {
+    setup();
+    let bin = JSON::parse(
+        r#"{
+        "dims": [1,2,3.1]
+    }"#,
+    );
+
+    assert!(bin.is_ok());
+}
+
+#[wasm_bindgen_test]
 pub fn test_packing_algorithm() {
     setup();
     let bin = JSON::parse(
@@ -39,6 +51,53 @@ pub fn test_packing_algorithm() {
         r#"[
         [
             "asdf"
+        ]
+    ]"#,
+    )
+    .unwrap();
+
+    assert_eq!(
+        JSON::stringify(&BinPacker::packing_algorithm(&bin, &items).unwrap()),
+        JSON::stringify(&expected),
+    );
+}
+
+#[wasm_bindgen_test]
+pub fn test_packing_algorithm_multiple_results() {
+    setup();
+    let bin = JSON::parse(
+        r#"{
+        "dims": [6,4,2]
+    }"#,
+    )
+    .unwrap();
+
+    let items = JSON::parse(
+        r#"[
+    {
+        "id": "item",
+        "dims": [6,4,1]
+    },
+    {
+        "id": "item",
+        "dims": [6,4,1]
+    },
+    {
+        "id": "item",
+        "dims": [6,4,1]
+    }
+    ]"#,
+    )
+    .unwrap();
+
+    let expected = JSON::parse(
+        r#"[
+        [
+            "item",
+            "item"
+        ],
+        [
+            "item"
         ]
     ]"#,
     )

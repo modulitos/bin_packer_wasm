@@ -59,7 +59,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           onChange={(e) =>
             onUpdate({
               ...item,
-              height: e.target.value,
+              height: parseInt(e.target.value),
             })
           }
         />
@@ -80,7 +80,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           onChange={(e) =>
             onUpdate({
               ...item,
-              length: e.target.value,
+              length: parseFloat(e.target.value),
             })
           }
         />
@@ -101,7 +101,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           onChange={(e) =>
             onUpdate({
               ...item,
-              width: e.target.value,
+              width: parseFloat(e.target.value),
             })
           }
         />
@@ -122,7 +122,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           onChange={(e) =>
             onUpdate({
               ...item,
-              quantity: e.target.value,
+                quantity: parseInt(e.target.value),
             })
           }
         />

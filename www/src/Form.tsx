@@ -60,43 +60,44 @@ const Form: FC<FormProps> = ({ onPack }) => {
     {
       items: [
         {
-          height: 1,
-          width: 1,
+          height: 6,
+          width: 4,
           length: 1,
           id: "test item",
           quantity: 12,
         },
       ],
       bin: {
-        height: 1,
-        width: 1,
-        length: 1,
+        height: 4,
+        width: 4,
+        length: 6,
       },
     },
   );
 
-  // make this call only on mount:
-  setup();
+  React.useEffect(() => {
+    console.log("setup wasm!");
+    setup();
+  }, []);
 
   const packBins = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    // TODO: call this with our actual items:
-    const bin = {
-      dims: [4, 5, 6],
-    };
-
-    const item_1 = {
-      id: "item 1",
-      dims: [1, 2, 3],
-    };
-
-    const test_items = [item_1];
-    const packedBins = BinPacker.packing_algorithm(bin, test_items);
-    console.assert(
-      JSON.stringify(packedBins) === '[[{"id":"item 1","dims":[1,2,3]}]]',
-      "bin packer failed!!!",
+    const packedBins = BinPacker.packing_algorithm(
+      {
+        dims: [state.bin.height, state.bin.length, state.bin.width],
+      },
+      state.items.flatMap((item) => {
+        return Array.from({ length: item.quantity }).fill({
+          id: item.id,
+          dims: [item.height, item.length, item.width],
+        });
+      }),
     );
+    // console.assert(
+    //   JSON.stringify(packedBins) === '[[{"id":"item 1","dims":[1,2,3]}]]',
+    //   "bin packer failed!!!",
+    // );
 
     onPack(packedBins);
   };
@@ -126,7 +127,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
       />
 
       <button
-        className="bg-blue-600 hover:bg-blue-700 duration-300 text-white shadow p-2 rounded-r max-w-lg justify-self-center"
+        className="block text-white uppercase text-lg p-4 rounded max-w-sm bg-teal-200 hover:bg-teal-600 justify-self-left "
         type="submit"
         onClick={(e) => packBins(e)}
       >
