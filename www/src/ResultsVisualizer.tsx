@@ -1,19 +1,19 @@
 import React from "react";
-
-export interface PackedItem {
-  id: String;
-  dims: number[];
-}
+import { PackedBin, PackedItem } from "./BinPackerInterfaces";
 
 type ResultsVisualizerProps = {
-  packedBins: PackedItem[][];
+  packedBins: PackedBin[];
 };
 
 const ResultsVisualizer: React.FC<ResultsVisualizerProps> = ({
   packedBins,
 }) => {
+  if (packedBins.length == 0) {
+    return <div>{"Select some bins to start packing!"}</div>;
+  }
+
   return (
-    <div >
+    <div className="object-fill">
       {`Results: `}
       {packedBins.map((bin: PackedItem[], bin_index) => {
         return (
