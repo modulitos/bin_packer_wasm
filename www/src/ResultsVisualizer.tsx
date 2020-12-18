@@ -18,11 +18,12 @@ const ResultsVisualizer: React.FC<ResultsVisualizerProps> = ({
       {packedBins.map((bin: PackedItem[], bin_index) => {
         return (
           <div className="p-2" key={bin_index}>
-            {`Bin #${bin_index + 1}, ${bin.length} item(s):`}
+            <p>{`Bin #${bin_index + 1}`}</p>
+            <p>{`${bin.length} item(s):`}</p>
             {bin.map((item: PackedItem, item_index) => {
               return (
                 <div className="p-4" key={item_index}>
-                  {JSON.stringify(item)}
+                  {JSON.stringify(item, null, 2)}
                 </div>
               );
             })}

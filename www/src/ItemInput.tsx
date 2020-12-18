@@ -10,15 +10,17 @@ type ItemInputProps = {
 };
 
 const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
-  const inputGroupClasses = "grid grid-flow-row";
+  // TODO: move these into CSS
+  const inputGroupClasses = "grid grid-flow-row pr-8";
   const label_classes =
     "font-bold text-gray-600 text-xs leading-8 uppercase h-6 mx-2 mt-3";
   const input_classes = "bg-gray-200 shadow-inner rounded-l p-2";
   const textOverride = { maxWidth: "8rem" };
   const numOverride = { maxWidth: "6rem" };
+
   // TODO: better styles: https://css-tricks.com/style-form-tailwind-css/ and validation of form fields
   return (
-    <div className="grid grid-flow-row grid-cols-5">
+    <div className="flex justify-start">
       <div className={inputGroupClasses}>
         <label
           htmlFor={`id_${keyI}`}

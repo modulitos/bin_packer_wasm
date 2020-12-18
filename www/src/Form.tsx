@@ -8,6 +8,7 @@ import React, {
 import { BinPacker, setup } from "wasm-previewer";
 import { PackedItem, Item, Bin } from "./BinPackerInterfaces";
 import ItemInput from "./ItemInput";
+import BinInput from "./BinInput";
 
 enum types {
   UPDATE_ITEM,
@@ -116,16 +117,14 @@ const Form: FC<FormProps> = ({ onPack }) => {
         item={state.items[0]}
         keyI={0}
       />
-      {/*{`Your Bin:`}*/}
-      {/*<input*/}
-      {/*  className="bg-gray-200 shadow-inner rounded-l p-2 flex-1"*/}
-      {/*  id="bin"*/}
-      {/*  type="email"*/}
-      {/*  aria-label="email address"*/}
-      {/*  placeholder="Enter your bin's dimensions"*/}
-      {/*  value={itemQuantity}*/}
-      {/*  onChange={(e) => console.log(e.target.value)}*/}
-      {/*/>*/}
+      <h1 className="font-sans font-bold text-3xl">{`Your Bin:`}</h1>
+      <BinInput
+        onUpdate={(newBin: Bin) =>
+          dispatch({ type: types.UPDATE_BIN, results: newBin })
+        }
+        bin={state.bin}
+      />
+
       <button
         className="bg-blue-600 hover:bg-blue-700 duration-300 text-white shadow p-2 rounded-r max-w-lg justify-self-center"
         type="submit"
