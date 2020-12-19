@@ -8,21 +8,17 @@ type BinInputProps = {
 
 const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
   // TODO: DRY up this CSS with ItemInput:
-  const inputGroupClasses = "grid grid-flow-row pr-8";
-  const label_classes =
-    "font-bold text-gray-600 text-xs leading-8 uppercase h-6 mx-2 mt-3";
-  const input_classes = "bg-gray-200 shadow-inner rounded-l p-2";
   const numOverride = { maxWidth: "6rem" };
 
   return (
     <div className="flex justify-start">
-      <div className={inputGroupClasses}>
+      <div className="field-group pr-8">
         <label
           htmlFor={`bin_input_height`}
-          className={label_classes}
-        >{`Height:`}</label>
+          className="field-label"
+        >{`Height`}</label>
         <input
-          className={input_classes}
+          className="field"
           id="bin_input_height"
           style={numOverride}
           type="number"
@@ -37,13 +33,13 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           }}
         />
       </div>
-      <div className={inputGroupClasses}>
+      <div className="field-group pr-8">
         <label
           htmlFor={`bin_input_length`}
-          className={label_classes}
-        >{`Length:`}</label>
+          className="field-label"
+        >{`Length`}</label>
         <input
-          className={input_classes}
+          className="field"
           id="bin_input_length"
           style={numOverride}
           type="number"
@@ -58,13 +54,13 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           }}
         />
       </div>
-      <div className={inputGroupClasses}>
+      <div className="field-group pr-8">
         <label
           htmlFor={`bin_input_width`}
-          className={label_classes}
-        >{`Width:`}</label>
+          className="field-label"
+        >{`Width`}</label>
         <input
-          className={input_classes}
+          className="field"
           id="bin_input_width"
           style={numOverride}
           type="number"

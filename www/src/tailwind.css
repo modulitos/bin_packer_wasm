@@ -25409,23 +25409,34 @@ video {
 
 /* Here we can add our own utilities or custom CSS */
 
-/*.field {*/
+.field {
+  border-width: 1px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgba(31, 41, 55, var(--tw-text-opacity));
+  /*"bg-gray-200 shadow-inner rounded-l p-2";*/
+}
 
-/*    @apply border py-2 px-3 text-grey-darkest;*/
+.field-label {
+  font-weight: 700;
+  height: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  line-height: 2rem;
+  margin-bottom: 0.5rem;
+  --tw-text-opacity: 1;
+  color: rgba(75, 85, 99, var(--tw-text-opacity));
+  text-transform: uppercase;
+  /*h-6 mx-2 mt-3*/
+}
 
-/*}*/
-
-/*.field-label {*/
-
-/*    @apply uppercase font-bold text-lg text-grey-darkest mb-2;*/
-
-/*}*/
-
-/*.field-group {*/
-
-/*    @apply flex flex-col;*/
-
-/*}*/
+.field-group {
+  display: flex;
+  flex-direction: column;
+}
 
 .btn {
   border-radius: 0.25rem;

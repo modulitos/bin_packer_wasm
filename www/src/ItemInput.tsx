@@ -10,24 +10,20 @@ type ItemInputProps = {
 };
 
 const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
-  // TODO: move these into CSS
-  const inputGroupClasses = "grid grid-flow-row pr-8";
-  const label_classes =
-    "font-bold text-gray-600 text-xs leading-8 uppercase h-6 mx-2 mt-3";
-  const input_classes = "bg-gray-200 shadow-inner rounded-l p-2";
   const textOverride = { maxWidth: "8rem" };
   const numOverride = { maxWidth: "6rem" };
 
-  // TODO: better styles: https://css-tricks.com/style-form-tailwind-css/ and validation of form fields
+  // styles used: https://css-tricks.com/style-form-tailwind-css/
+  // TODO: better validation
   return (
     <div className="flex justify-start">
-      <div className={inputGroupClasses}>
+      <div className="field-group pr-8">
         <label
           htmlFor={`id_${keyI}`}
-          className={label_classes}
-        >{`Item id:`}</label>
+          className="field-label"
+        >{`Item id`}</label>
         <input
-          className={input_classes}
+          className="field"
           style={textOverride}
           id={`id_${keyI}`}
           required
@@ -42,13 +38,13 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           }}
         />
       </div>
-      <div className={inputGroupClasses}>
+      <div className="field-group pr-8">
         <label
           htmlFor={`height_${keyI}`}
-          className={label_classes}
-        >{`height:`}</label>
+          className="field-label"
+        >{`height`}</label>
         <input
-          className={input_classes}
+          className="field"
           style={numOverride}
           required={true}
           id={`height_${keyI}`}
@@ -64,13 +60,13 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           }
         />
       </div>
-      <div className={inputGroupClasses}>
+      <div className="field-group pr-8">
         <label
           htmlFor={`length_${keyI}`}
-          className={label_classes}
-        >{`length:`}</label>
+          className="field-label"
+        >{`length`}</label>
         <input
-          className={input_classes}
+          className="field"
           id={`length_${keyI}`}
           style={numOverride}
           type="number"
@@ -85,13 +81,13 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           }
         />
       </div>
-      <div className={inputGroupClasses}>
+      <div className="field-group pr-8">
         <label
           htmlFor={`width_${keyI}`}
-          className={label_classes}
-        >{`width:`}</label>
+          className="field-label"
+        >{`width`}</label>
         <input
-          className={input_classes}
+          className="field"
           id={`width_${keyI}`}
           style={numOverride}
           type="number"
@@ -107,13 +103,13 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
         />
       </div>
 
-      <div className={inputGroupClasses}>
+      <div className="field-group pr-8">
         <label
           htmlFor={`quantity_${keyI}`}
-          className={label_classes}
-        >{`quantity:`}</label>
+          className="field-label"
+        >{`quantity`}</label>
         <input
-          className={input_classes}
+          className="field"
           id={`quantity_${keyI}`}
           style={numOverride}
           type="number"
@@ -122,7 +118,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           onChange={(e) =>
             onUpdate({
               ...item,
-                quantity: parseInt(e.target.value),
+              quantity: parseInt(e.target.value),
             })
           }
         />
