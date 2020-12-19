@@ -1,22 +1,22 @@
 import React, { FC } from "react";
 import { Item } from "./BinPackerInterfaces";
+import { XButton } from "./Buttons";
 
 type ItemInputProps = {
   onUpdate: Function;
-  // TODO: include a remove button:
-  // onDelete: Function;
+  onDelete: Function;
   item: Item;
   keyI: number;
 };
 
-const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
+const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate, onDelete }) => {
   const textOverride = { maxWidth: "8rem" };
   const numOverride = { maxWidth: "6rem" };
 
   // styles used: https://css-tricks.com/style-form-tailwind-css/
   // TODO: better validation
   return (
-    <div className="flex justify-start">
+    <div className="flex justify-start col-span-full">
       <div className="field-group pr-8">
         <label
           htmlFor={`id_${keyI}`}
@@ -123,6 +123,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate }) => {
           }
         />
       </div>
+      <XButton onClick={onDelete} />
     </div>
   );
 };

@@ -25447,16 +25447,39 @@ video {
   --tw-text-opacity: 1;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
   text-transform: uppercase;
+  /*max-w-sm bg-teal-200 hover:bg-teal-600*/
+}
+
+.svg-btn {
+  border-radius: 0.25rem;
+  display: block;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  --tw-text-opacity: 1;
+  color: rgba(255, 255, 255, var(--tw-text-opacity));
+  /*max-w-sm bg-teal-200 hover:bg-teal-600*/
 }
 
 .btn-teal {
   --tw-bg-opacity: 1;
-  background-color: rgba(153, 246, 228, var(--tw-bg-opacity));
+  background-color: rgba(20, 184, 166, var(--tw-bg-opacity));
 }
 
 .btn-teal:hover {
   --tw-bg-opacity: 1;
-  background-color: rgba(13, 148, 136, var(--tw-bg-opacity));
+  background-color: rgba(153, 246, 228, var(--tw-bg-opacity));
+}
+
+.btn-red {
+  --tw-bg-opacity: 1;
+  background-color: rgba(244, 63, 94, var(--tw-bg-opacity));
+}
+
+.btn-red:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgba(254, 205, 211, var(--tw-bg-opacity));
 }
 
 /*.link {*/

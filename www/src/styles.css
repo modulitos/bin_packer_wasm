@@ -21,16 +21,28 @@
 
 .btn {
     @apply block text-white uppercase text-lg p-4 rounded;
+    /*max-w-sm bg-teal-200 hover:bg-teal-600*/
+}
+.svg-btn {
+    @apply block text-white text-lg text-lg rounded;
+    /*max-w-sm bg-teal-200 hover:bg-teal-600*/
 }
 
 .btn-teal {
-    @apply bg-teal-200;
+    @apply bg-teal-500;
 }
 
 .btn-teal:hover {
-    @apply bg-teal-600;
+    @apply bg-teal-200;
 }
 
+.btn-red {
+    @apply bg-red-500;
+}
+
+.btn-red:hover {
+    @apply bg-red-200;
+}
 /*.link {*/
 /*    @apply .block .no-underline .text-sm;*/
 /*}*/

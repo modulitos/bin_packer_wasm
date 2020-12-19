@@ -1,5 +1,5 @@
 import React from "react";
-import { Bin, Item } from "./BinPackerInterfaces";
+import { Bin } from "./BinPackerInterfaces";
 
 type BinInputProps = {
   onUpdate: Function;
@@ -7,7 +7,6 @@ type BinInputProps = {
 };
 
 const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
-  // TODO: DRY up this CSS with ItemInput:
   const numOverride = { maxWidth: "6rem" };
 
   return (
