@@ -1,7 +1,8 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/bootstrap.ts",
+  entry: path.join(__dirname, 'src', 'bootstrap.js'),
   mode: "development",
   module: {
     rules: [
@@ -20,6 +21,13 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      hash: true,
+      title: "test binpacker webpack",
+      template: "./src/index.html",
+    }),
+  ],
   resolve: {
     extensions: [".tsx", ".ts", ".js", ".wasm"],
   },

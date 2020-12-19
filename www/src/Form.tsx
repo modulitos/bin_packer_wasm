@@ -5,7 +5,8 @@ import React, {
   useReducer,
   useState,
 } from "react";
-import { BinPacker, setup } from "wasm-previewer";
+// use this in package.json for local dev: "bin_packer_3d": "file:../pkg"
+import { BinPacker, setup } from "bin_packer_3d";
 import { PackedItem, Item, Bin } from "./BinPackerInterfaces";
 import ItemInput from "./ItemInput";
 import BinInput from "./BinInput";

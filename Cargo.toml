@@ -1,6 +1,6 @@
 [package]
-name = "wasm-previewer"
-version = "0.1.0"
+name = "bin_packer_3d"
+version = "0.1.1"
 authors = ["modulitos <modulitos@users.noreply.github.com>"]
 edition = "2018"
 

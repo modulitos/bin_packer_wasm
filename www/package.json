@@ -32,15 +32,17 @@
   "dependencies": {
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/webpack": "^4.41.25",
     "autoprefixer": "^10.1.0",
+    "bin_packer_3d": "^0.1.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "tailwindcss": "^2.0.2",
-    "wasm-previewer": "file:../pkg"
+    "tailwindcss": "^2.0.2"
   },
   "devDependencies": {
     "@testing-library/react": "^11.2.2",
     "css-loader": "^5.0.1",
+    "html-webpack-plugin": "^4.5.0",
     "jest": "^26.6.3",
     "postcss": "^8.2.1",
     "postcss-loader": "^4.1.0",
