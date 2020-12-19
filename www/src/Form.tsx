@@ -27,12 +27,13 @@ type Action =
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case types.CREATE_ITEM: {
+      const i = state.items.length;
       return {
         ...state,
         items: [
           ...state.items,
           {
-            id: "new item",
+            id: `item ${i + 1}`,
             height: 1,
             length: 1,
             width: 1,
