@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build-css": "npx tailwindcss-cli@latest build -o tailwind.css",
-    "build-custom-css": "npx tailwindcss-cli@latest build ./src/styles.css -o tailwind.css",
+    "build-custom-css": "npx tailwindcss-cli@latest build ./src/styles.css -o ./src/tailwind.css",
     "test": "jest",
     "start": "webpack-dev-server"
   },
