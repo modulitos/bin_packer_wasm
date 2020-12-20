@@ -24,7 +24,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       hash: true,
-      title: "test binpacker webpack",
+      title: "3-dimensional bin packing visualizer",
       template: "./src/index.html",
     }),
   ],
