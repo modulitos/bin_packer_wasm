@@ -7,15 +7,15 @@ export interface PackedItem {
 export type PackedBin  = PackedItem[];
 
 export interface Bin {
-  height: number;
-  length: number;
-  width: number;
+  height: number; // float
+  length: number; // float
+  width: number; // float
 }
 
 export interface Item {
   id: string;
-  height: number;
-  length: number;
-  width: number;
-  quantity: number;
+  height: number; // float
+  length: number; // float
+  width: number; // float
+  quantity: number; // int
 }

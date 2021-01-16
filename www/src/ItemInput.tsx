@@ -55,7 +55,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate, onDelete }) => {
           onChange={(e) =>
             onUpdate({
               ...item,
-              height: parseInt(e.target.value),
+              height: parseFloat(e.target.value),
             })
           }
         />
@@ -67,8 +67,9 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate, onDelete }) => {
         >{`length`}</label>
         <input
           className="field"
-          id={`length_${keyI}`}
           style={numOverride}
+          required={true}
+          id={`length_${keyI}`}
           type="number"
           step={0.1}
           placeholder="Enter your item's length"
@@ -90,6 +91,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate, onDelete }) => {
           className="field"
           id={`width_${keyI}`}
           style={numOverride}
+          required={true}
           type="number"
           step={0.1}
           placeholder="Enter your item's width"
@@ -112,6 +114,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate, onDelete }) => {
           className="field"
           id={`quantity_${keyI}`}
           style={numOverride}
+          required={true}
           type="number"
           placeholder="Enter the quantity"
           value={item.quantity}

@@ -20,14 +20,16 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           className="field"
           id="bin_input_height"
           style={numOverride}
+          required={true}
           type="number"
+          step={0.1}
           aria-label="bin height"
           placeholder="Enter your bin's height"
           value={bin.height}
           onChange={(e) => {
             onUpdate({
               ...bin,
-              height: parseInt(e.target.value),
+              height: parseFloat(e.target.value),
             });
           }}
         />
@@ -41,14 +43,16 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           className="field"
           id="bin_input_length"
           style={numOverride}
+          required={true}
           type="number"
+          step={0.1}
           aria-label="bin length"
           placeholder="Enter your bin's length"
           value={bin.length}
           onChange={(e) => {
             onUpdate({
               ...bin,
-              length: parseInt(e.target.value),
+              length: parseFloat(e.target.value),
             });
           }}
         />
@@ -62,14 +66,16 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           className="field"
           id="bin_input_width"
           style={numOverride}
+          required={true}
           type="number"
+          step={0.1}
           aria-label="bin width"
           placeholder="Enter your bin's width"
           value={bin.width}
           onChange={(e) => {
             onUpdate({
               ...bin,
-              width: parseInt(e.target.value),
+              width: parseFloat(e.target.value),
             });
           }}
         />
