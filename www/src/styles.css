@@ -43,6 +43,10 @@
 .btn-red:hover {
     @apply bg-red-200;
 }
+
+.error-text {
+    @apply font-sans font-bold col-span-full text-red-500
+}
 /*.link {*/
 /*    @apply .block .no-underline .text-sm;*/
 /*}*/

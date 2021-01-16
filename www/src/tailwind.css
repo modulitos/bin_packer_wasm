@@ -25482,6 +25482,14 @@ video {
   background-color: rgba(254, 205, 211, var(--tw-bg-opacity));
 }
 
+.error-text {
+  font-family: Graphik, sans-serif;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgba(244, 63, 94, var(--tw-text-opacity));
+  grid-column: 1 / -1
+}
+
 /*.link {*/
 
 /*    @apply .block .no-underline .text-sm;*/

@@ -11,18 +11,21 @@ enum types {
   UPDATE_BIN,
   CREATE_ITEM,
   DELETE_ITEM,
+  SHOW_ERROR,
 }
 
 interface State {
   items: Item[];
   bin: Bin;
+  error?: string;
 }
 
 type Action =
   | { type: types.UPDATE_ITEM; results: { item: Item; i: number } }
   | { type: types.CREATE_ITEM }
   | { type: types.DELETE_ITEM; results: number }
-  | { type: types.UPDATE_BIN; results: Bin };
+  | { type: types.UPDATE_BIN; results: Bin }
+  | { type: types.SHOW_ERROR; error: string };
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -40,6 +43,7 @@ function reducer(state: State, action: Action): State {
             quantity: 1,
           },
         ],
+        error: null,
       };
     }
     case types.UPDATE_ITEM: {
@@ -51,6 +55,7 @@ function reducer(state: State, action: Action): State {
           action.results.item,
           ...state.items.slice(i + 1),
         ],
+        error: null,
       };
     }
     case types.DELETE_ITEM: {
@@ -58,12 +63,20 @@ function reducer(state: State, action: Action): State {
       return {
         ...state,
         items: [...state.items.slice(0, i), ...state.items.slice(i + 1)],
+        error: null,
       };
     }
     case types.UPDATE_BIN: {
       return {
         ...state,
         bin: action.results,
+        error: null,
+      };
+    }
+    case types.SHOW_ERROR: {
+      return {
+        ...state,
+        error: action.error,
       };
     }
   }
@@ -102,6 +115,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
         width: 8,
         length: 12,
       },
+      error: null
     },
   );
 
@@ -113,23 +127,34 @@ const Form: FC<FormProps> = ({ onPack }) => {
   const packBins = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
-    const packedBins = BinPacker.packing_algorithm(
-      {
-        dims: [state.bin.height, state.bin.length, state.bin.width],
-      },
-      state.items.flatMap((item) => {
-        return Array.from({ length: item.quantity }).fill({
-          id: item.id,
-          dims: [item.height, item.length, item.width],
-        });
-      }),
-    );
-    // console.assert(
-    //   JSON.stringify(packedBins) === '[[{"id":"item 1","dims":[1,2,3]}]]',
-    //   "bin packer failed!!!",
-    // );
+    try {
+      const packedBins = BinPacker.packing_algorithm(
+        {
+          dims: [state.bin.height, state.bin.length, state.bin.width],
+        },
+        state.items.flatMap((item) => {
+          return Array.from({ length: item.quantity }).fill({
+            id: item.id,
+            dims: [item.height, item.length, item.width],
+          });
+        }),
+      );
+      // console.assert(
+      //   JSON.stringify(packedBins) === '[[{"id":"item 1","dims":[1,2,3]}]]',
+      //   "bin packer failed!!!",
+      // );
 
-    onPack(packedBins);
+      onPack(packedBins);
+    } catch (error) {
+      if (typeof error === "string" && error.startsWith("binpack error")) {
+        dispatch({
+          type: types.SHOW_ERROR,
+          error: error,
+        });
+      } else {
+        throw error;
+      }
+    }
   };
 
   return (
@@ -178,6 +203,14 @@ const Form: FC<FormProps> = ({ onPack }) => {
       >
         {`Pack it!`}
       </button>
+      {state.error && (
+        <React.Fragment>
+          <h5 className="error-text text-2xl col-span-full">
+            {"Unable to pack your request, due to errors:"}
+          </h5>
+          <p className="error-text  col-span-full">{state.error}</p>
+        </React.Fragment>
+      )}
     </form>
   );
 };
