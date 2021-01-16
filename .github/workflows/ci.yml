@@ -19,12 +19,12 @@ jobs:
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{matrix.rust}}
-      - run: wasm-pack test --headless --firefox
-      - run: cargo check --no-default-features
       - uses: jetli/wasm-pack-action@v0.3.0
         with:
           # Optional version of wasm-pack to install(eg. 'v0.9.1', 'latest')
           version: 'v0.9.1'
+      - run: wasm-pack test --headless --firefox
+      - run: cargo check --no-default-features
   clippy:
     name: Clippy
     runs-on: ubuntu-latest
