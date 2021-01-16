@@ -1,27 +1,30 @@
-[<img alt="build status" src="https://img.shields.io/github/workflow/status/modulitos/bin_packer_wasm/CI/master?style=for-the-badge" height="20">](https://github.com/modulitos/bin_packer_3d/actions?query=branch%3Amaster)
+[<img alt="build status" src="https://img.shields.io/github/workflow/status/modulitos/bin_packer_wasm/CI/master?style=for-the-badge" height="20">](https://github.com/modulitos/bin_packer_wasm/actions?query=branch%3Amaster)
 
-This crate includes the wasm bindings for the [bin_packer_3d](https://github.com/modulitos/bin_packing_3d) crate.
+This repo consists of two projects: 
+1. a crate with wasm bindings for [bin_packer_3d](https://github.com/modulitos/bin_packing_3d)
+2. an SPA to demonstrate the abilities of this crate
 
-There is also a `www` dir that contains an SPA to demonstrate the abilities of this crate.
+## The WASM crate
 
-## Development
+### Development
 
-### 🔬 Test in Headless Browsers with `wasm-pack test`
+#### 🔬 Test the module within Headless Browsers with `wasm-pack test`
 
 ```
 wasm-pack test --headless --firefox
 ```
 
 
-## Building and publishing
+### Building and publishing
 
-### 🛠️ Build with `wasm-pack build`
+#### 🛠️ Build with `wasm-pack build`
 
 ```
 wasm-pack build
 ```
 
-#### additional notes for manual edits:
+##### additional notes for required manual edits:
+(TODO: update the upstream wasm-pack lib to avoid having to do this manually)
 
 1. add `"bin_packer_3d_wasm_bg.js"` to the package.json's `files` field
    *perhaps related issue: https://github.com/rustwasm/wasm-pack/issues/199*
@@ -38,6 +41,22 @@ wasm-pack build
 ```
 wasm-pack publish
 ```
+
+
+## The SPA
+
+### Development
+#### 🎦 Start the SPA on a local server
+
+```bash
+cd wwww
+npm start
+```
+### Building and publishing
+
+#### 🛠️ Build with `npm run build`
+
+#### 🎁 Publish the SPA with `./upload.sh --prod`
 
 ## Acknowledgements
 
