@@ -7,7 +7,7 @@ use js_sys::{Object, JSON};
 use serde_json::error::Error as SerdeJsonError;
 use wasm_bindgen::JsValue;
 use wasm_bindgen_test::*;
-use wasm_previewer::{error::MyError, setup, BinPacker};
+use bin_packer_3d_wasm::{error::MyError, setup, BinPacker};
 
 // TODO: It would be nice to have our tests return a Result, but the `wasm_bindgen_test` macro
 // doesn't currently support output signatures: https://github.com/rustwasm/wasm-bindgen/issues/1830

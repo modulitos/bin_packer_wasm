@@ -47,6 +47,12 @@ cd my-project
 wasm-pack build
 ```
 
+#### additional notes for manual edits:
+
+1. add `"bin_packer_3d_bg.js"` to the package.json's `files` field (perhaps related issue: https://github.com/rustwasm/wasm-pack/issues/199)
+2. add `"module": "bin_packer_3d.js",` (to enable importing as esm from node)
+3. add `"type": "module",` (to enable importing as esm from node)
+
 ### 🔬 Test in Headless Browsers with `wasm-pack test`
 
 ```
