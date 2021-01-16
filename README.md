@@ -52,6 +52,10 @@ wasm-pack publish
 cd wwww
 npm start
 ```
+
+#### 🔬 Test the SPA with RTL/Jest
+(TODO: add this)
+
 ### Building and publishing
 
 #### 🛠️ Build with `npm run build`
