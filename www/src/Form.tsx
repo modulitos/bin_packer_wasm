@@ -158,8 +158,8 @@ const Form: FC<FormProps> = ({ onPack }) => {
   };
 
   return (
-    <form className="grid grid-flow-row grid-cols-8 gap-4 mx-4 my-8">
-      <h1 className="font-sans font-bold text-3xl col-span-full">{`Your Items:`}</h1>
+    <form className="flex flex-col py-8 px-4">
+      <h1 className="font-sans font-bold text-3xl my-2">{`Your Items:`}</h1>
       {state.items.map((item, i) => (
         <ItemInput
           onUpdate={(newItem: Item) =>
@@ -189,7 +189,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
           })
         }
       />
-      <h1 className="font-sans font-bold text-3xl col-span-full">{`Your Bin:`}</h1>
+      <h1 className="font-sans font-bold text-3xl my-2">{`Your Bin:`}</h1>
       <BinInput
         onUpdate={(newBin: Bin) =>
           dispatch({ type: types.UPDATE_BIN, results: newBin })
@@ -197,7 +197,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
         bin={state.bin}
       />
       <button
-        className="btn btn-teal btn-teal:hover justify-self-left max-w-sm col-span-full"
+        className="btn btn-teal btn-teal:hover justify-self-left max-w-sm my-2"
         type="submit"
         onClick={(e) => packBins(e)}
       >

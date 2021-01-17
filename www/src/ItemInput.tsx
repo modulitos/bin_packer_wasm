@@ -16,7 +16,7 @@ const ItemInput: FC<ItemInputProps> = ({ item, keyI, onUpdate, onDelete }) => {
   // styles used: https://css-tricks.com/style-form-tailwind-css/
   // TODO: better validation
   return (
-    <div className="flex justify-start col-span-full">
+    <div className="flex justify-start flex-wrap my-2">
       <div className="field-group pr-8">
         <label
           htmlFor={`id_${keyI}`}

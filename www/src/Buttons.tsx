@@ -11,7 +11,7 @@ type ButtonProps = {
 export const PlusButton: React.FC<ButtonProps> = ({ onClick }) => {
   return (
     <button
-      className="block svg-btn btn-teal btn-teal:hover justify-self-left max-w-xs font-bold h-8"
+      className="block svg-btn btn-teal btn-teal:hover justify-self-left font-bold w-14 m-2"
       onClick={(e) => {
         e.preventDefault();
         onClick(e);
@@ -38,7 +38,7 @@ export const PlusButton: React.FC<ButtonProps> = ({ onClick }) => {
 export const XButton: React.FC<ButtonProps> = ({ onClick }) => {
   return (
     <button
-      className="block svg-btn btn-red btn-red:hover self-center max-w-xs font-bold h-8"
+      className="block svg-btn btn-red btn-red:hover self-center font-bold m-2 w-10"
       onClick={(e) => {
         e.preventDefault();
         onClick(e);
