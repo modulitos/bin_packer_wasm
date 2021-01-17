@@ -11,7 +11,7 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
 
   return (
     <div className="flex justify-start flex-wrap my-2">
-      <div className="field-group pr-8">
+      <div className="field-group mr-8">
         <label
           htmlFor={`bin_input_height`}
           className="field-label"
@@ -34,7 +34,7 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           }}
         />
       </div>
-      <div className="field-group pr-8">
+      <div className="field-group mr-8">
         <label
           htmlFor={`bin_input_length`}
           className="field-label"
@@ -57,7 +57,7 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
           }}
         />
       </div>
-      <div className="field-group pr-8">
+      <div className="field-group">
         <label
           htmlFor={`bin_input_width`}
           className="field-label"

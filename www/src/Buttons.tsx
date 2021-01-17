@@ -38,7 +38,7 @@ export const PlusButton: React.FC<ButtonProps> = ({ onClick }) => {
 export const XButton: React.FC<ButtonProps> = ({ onClick }) => {
   return (
     <button
-      className="block svg-btn btn-red btn-red:hover self-center font-bold m-2 w-10"
+      className="block svg-btn btn-red btn-red:hover self-center font-bold m-2 mb-0 w-10 mt-auto"
       onClick={(e) => {
         e.preventDefault();
         onClick(e);
