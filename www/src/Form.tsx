@@ -158,7 +158,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
   };
 
   return (
-    <form className="flex flex-col py-8 px-4">
+    <form className="flex flex-col p-4 sm:p-6">
       <h1 className="font-sans font-bold text-3xl my-2">{`Your Items:`}</h1>
       {state.items.map((item, i) => (
         <ItemInput

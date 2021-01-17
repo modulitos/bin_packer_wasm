@@ -9,7 +9,7 @@ const ResultsVisualizer: React.FC<ResultsVisualizerProps> = ({
   packedBins,
 }) => {
   if (packedBins.length == 0) {
-    return <div>{"Select some bins to start packing!"}</div>;
+    return <div>{"Fill out the form to start packing."}</div>;
   }
 
   return (

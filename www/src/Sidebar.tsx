@@ -28,8 +28,8 @@ const Sidebar: FC<SidebarProps> = ({ children }) => {
               {isOpen ? <ChevronRight /> : <ChevronLeft />}
             </button>
           </div>
-          <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">
-            <div className="mt-6 relative flex-1 px-4 sm:px-6">{children}</div>
+          <div className="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
+            <div className="relative flex-1">{children}</div>
           </div>
         </div>
       </section>
