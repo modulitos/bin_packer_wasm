@@ -10,7 +10,7 @@ const BinInput: React.FC<BinInputProps> = ({ bin, onUpdate }) => {
   const numOverride = { maxWidth: "6rem" };
 
   return (
-    <div className="flex justify-start">
+    <div className="flex justify-start flex-wrap my-2">
       <div className="field-group pr-8">
         <label
           htmlFor={`bin_input_height`}
