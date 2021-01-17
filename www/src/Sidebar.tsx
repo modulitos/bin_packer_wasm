@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { ChevronRight, ChevronLeft } from "./Icons";
 
 type SidebarProps = {};
 
@@ -18,29 +19,13 @@ const Sidebar: FC<SidebarProps> = ({ children }) => {
         >
           <div className="absolute top-0 left-0 -ml-8 pt-4 pr-2 flex sm:-ml-10 sm:pr-4">
             <button
-              className="rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
-              onClick={() => {
-                console.log("clicked!!! isOpen:", isOpen);
+              className="block text-gray text-lg text-lg rounded bg-white-500 btn-teal:hover font-bold mb-0 w-10 mt-auto"
+              onClick={(e) => {
+                e.preventDefault();
                 setIsOpen(!isOpen);
               }}
             >
-              <span className="sr-only">Close panel</span>
-              {/*// <!-- Heroicon name: x -->*/}
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              {isOpen ? <ChevronRight /> : <ChevronLeft />}
             </button>
           </div>
           <div className="h-full flex flex-col py-6 bg-white shadow-xl overflow-y-scroll">

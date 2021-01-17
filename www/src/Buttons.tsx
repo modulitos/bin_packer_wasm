@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 
 {
   /* SVG buttons taken from here: https://heroicons.com/*/
 }
 
 type ButtonProps = {
-  onClick: Function;
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const PlusButton: React.FC<ButtonProps> = ({ onClick }) => {

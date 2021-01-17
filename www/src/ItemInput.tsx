@@ -4,7 +4,7 @@ import { XButton } from "./Buttons";
 
 type ItemInputProps = {
   onUpdate: Function;
-  onDelete: Function;
+  onDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
   item: Item;
   keyI: number;
 };
