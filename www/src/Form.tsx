@@ -115,7 +115,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
         width: 8,
         length: 12,
       },
-      error: null
+      error: null,
     },
   );
 
@@ -139,6 +139,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
           });
         }),
       );
+      // const packedBins = [[{ id: "item 1", dims: [1, 2, 3] }]];
       // console.assert(
       //   JSON.stringify(packedBins) === '[[{"id":"item 1","dims":[1,2,3]}]]',
       //   "bin packer failed!!!",
