@@ -1,7 +1,7 @@
 import React, { Dispatch, FC } from "react";
 // use this in package.json for local dev: "bin_packer_3d": "file:../pkg"
 import { BinPacker, setup } from "bin_packer_3d";
-import { PackedItem, Item, Bin } from "./BinPackerInterfaces";
+import { PackedItem, Item, Bin, PackedBin } from "./BinPackerInterfaces";
 import ItemInput from "./ItemInput";
 import BinInput from "./BinInput";
 import { PlusButton } from "./Buttons";
@@ -83,7 +83,7 @@ function reducer(state: State, action: Action): State {
 }
 
 type FormProps = {
-  onPack: (packedBins: PackedItem[][]) => void;
+  onPack: (packedBins: PackedBin[]) => void;
 };
 
 const Form: FC<FormProps> = ({ onPack }) => {

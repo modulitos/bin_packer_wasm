@@ -7,7 +7,8 @@ export interface PackedItem {
   ];
   // dims: number[3];
 }
-export type PackedBin  = PackedItem[];
+// export type PackedBin  = PackedItem[];
+export type PackedBin  = string[];
 
 // TODO: refactor BinPacker to support this interface, which will allow us to position the items within a bin.
 
