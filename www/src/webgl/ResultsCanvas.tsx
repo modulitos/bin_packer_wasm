@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Canvas } from "react-three-fiber";
 import CameraControls from "./CameraControls";
 import Bin from "./Bin";
@@ -8,21 +8,23 @@ type BinCanvasProps = {
   packedBin: PackedBinWithPosition;
 };
 
-const BinCanvas: React.FC<BinCanvasProps> = ({ packedBin }) => {
+const ResultsCanvas: React.FC<BinCanvasProps> = ({ packedBin }) => {
   return (
-    <div>
-      <Canvas className="z-10">
+    <div className="min-h-full" >
+      <Canvas className="z-10 bg-black min-h-full">
         <CameraControls />
-        <ambientLight intensity={0.5} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-        <pointLight position={[-10, -10, -10]} />
-        <Bin dims={[3, 3, 3]} />
+        <ambientLight args={[0x444444]} intensity={0.5} />
+        <pointLight args={[0xffffff, 1.25, 1000]} position={[-10, -10, -10]} />
+        <directionalLight args={[0xffffff]} position={[1, -0.5, -1]} />
+        {/*<Suspense fallback={<p>"unavailable"</p>}>*/}
+          <Bin dims={[3, 3, 3]} />
+        {/*</Suspense>*/}
       </Canvas>
     </div>
   );
 };
 
-export default BinCanvas;
+export default ResultsCanvas;
 
 // import React from "react";
 // import ReactDOM from "react-dom";

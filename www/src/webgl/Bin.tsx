@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
+import * as THREE from "three";
 
 type BinProps = {
   dims: [
@@ -18,6 +19,7 @@ const Bin: React.FC<BinProps> = (props) => {
   const mesh = useRef();
   const [state, setState] = useState({ isHovered: false, isActive: false });
 
+  const geom = useMemo(() => new THREE.BoxGeometry(...props.dims), props.dims);
   return (
     // {...props}
     <mesh
@@ -27,8 +29,11 @@ const Bin: React.FC<BinProps> = (props) => {
       onPointerOver={(e) => setState({ ...state, isHovered: true })}
       onPointerOut={(e) => setState({ ...state, isHovered: false })}
     >
-      <boxBufferGeometry args={props.dims} />
-      <meshStandardMaterial color={state.isActive ? "#820263" : "#D90368"} />
+      <lineSegments>
+        <lineBasicMaterial color={0xffffff} attach="material"/>
+        <edgesGeometry attach="geometry" >
+        </edgesGeometry>
+      </lineSegments>
     </mesh>
   );
 };
