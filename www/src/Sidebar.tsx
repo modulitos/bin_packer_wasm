@@ -13,7 +13,7 @@ const Sidebar: FC<SidebarProps> = ({ children }) => {
         aria-labelledby="slide-over-heading"
       >
         <div
-          className={`relative w-screen max-w-4xl  transform transition ease-in-out duration-500 sm:duration-70 translate-x-${
+          className={`relative z-20 w-screen max-w-4xl  transform transition ease-in-out duration-500 sm:duration-70 translate-x-${
             isOpen ? "0" : "full"
           }`}
         >

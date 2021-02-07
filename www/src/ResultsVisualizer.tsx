@@ -1,8 +1,12 @@
 import React from "react";
-import { PackedBin, PackedItem } from "./BinPackerInterfaces";
-import { Canvas, extend, useThree, ReactThreeFiber } from 'react-three-fiber';
-import CameraControls from "./webgl/CameraControls";
-import Bin from './webgl/Bin'
+import {
+  PackedBin,
+  PackedBinWithPosition,
+  PackedItem,
+  PackedItemWithPosition,
+} from "./BinPackerInterfaces";
+import BinCanvas from "./webgl/BinCanvas";
+import BinSummary from "./BinSummary";
 
 type ResultsVisualizerProps = {
   packedBins: PackedBin[];
@@ -35,15 +39,13 @@ const ResultsVisualizer: React.FC<ResultsVisualizerProps> = ({
   //     })}
   //   </div>
   // );
+  const packedBin: PackedBinWithPosition = [];
   return (
-    <Canvas className="z-10">
-      <CameraControls />
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-      <pointLight position={[-10, -10, -10]} />
-      <Bin dims={[3, 3, 3]} />
-    </Canvas>
-  )
+    <div>
+      <BinSummary packedBins={packedBins} />
+      <BinCanvas packedBin={packedBin} />
+    </div>
+  );
 };
 
 export default ResultsVisualizer;

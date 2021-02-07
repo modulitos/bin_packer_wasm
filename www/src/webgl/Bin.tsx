@@ -2,12 +2,15 @@ import React, { useRef, useState } from "react";
 
 type BinProps = {
   dims: [
-    width?: number,
-    height?: number,
-    depth?: number,
-    widthSegments?: number,
-    heightSegments?: number,
-    depthSegments?: number,
+    x?: number,
+    y?: number,
+    z?: number,
+    // width?: number,
+    // height?: number,
+    // depth?: number,
+    // widthSegments?: number,
+    // heightSegments?: number,
+    // depthSegments?: number,
   ];
 };
 
