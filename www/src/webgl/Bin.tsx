@@ -31,7 +31,7 @@ const Bin: React.FC<BinProps> = (props) => {
     >
       <lineSegments>
         <lineBasicMaterial color={0xffffff} attach="material"/>
-        <edgesGeometry attach="geometry" >
+        <edgesGeometry attach="geometry" args={[geom]}>
         </edgesGeometry>
       </lineSegments>
     </mesh>
