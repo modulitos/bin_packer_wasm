@@ -16,7 +16,15 @@ declare global {
   }
 }
 
-const CameraControls = () => {
+type CameraControlsProps = {
+  position: [
+    x: number,
+    y: number,
+    z: number,
+  ]
+}
+
+const CameraControls: React.FC<CameraControlsProps> = ({position}) => {
   // Get a reference to the Three.js Camera, and the canvas html element.
   // We need these to setup the OrbitControls component.
   // https://threejs.org/docs/#examples/en/controls/OrbitControls
@@ -31,14 +39,15 @@ const CameraControls = () => {
   //   // @ts-ignore
   //   controls.current.update();
   // });
+  camera.position.set(...position)
   return (
     <orbitControls
       ref={controls}
       args={[camera, domElement]}
       enableZoom={false}
-      maxAzimuthAngle={Math.PI / 4}
-      maxPolarAngle={Math.PI}
-      minAzimuthAngle={-Math.PI / 4}
+      maxAzimuthAngle={Math.PI }
+      minAzimuthAngle={-Math.PI}
+      maxPolarAngle={Math.PI / 2}
       minPolarAngle={0}
     />
   );

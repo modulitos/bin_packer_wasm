@@ -20,7 +20,7 @@ const Sidebar: FC<SidebarProps> = ({ children }) => {
         </button>
       </div>
       <section
-        className="absolute inset-y-0 right-0 pl-10 max-w-full flex"
+        className="absolute inset-y-0 right-0 pl-4 max-w-full flex"
         aria-labelledby="slide-over-heading"
       >
         <div

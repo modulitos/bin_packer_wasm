@@ -3,9 +3,15 @@ import { PackedBin } from "./BinPackerInterfaces";
 
 type BinSummaryProps = {
   packedBins: PackedBin[];
+  onSelectBin: (binIndex: number) => void;
+  selectedBin: number;
 };
 
-const BinSummary: React.FC<BinSummaryProps> = ({ packedBins }) => {
+const BinSummary: React.FC<BinSummaryProps> = ({
+  packedBins,
+  onSelectBin,
+  selectedBin,
+}) => {
   const groupedBins = packedBins.map((bin) => {
     return bin.reduce((acc: { [id: string]: number }, itemId) => {
       acc[itemId] ??= 0;
@@ -23,12 +29,17 @@ const BinSummary: React.FC<BinSummaryProps> = ({ packedBins }) => {
       </h1>
       <div className="flex flex-row overflow-x-auto">
         {groupedBins.map((bin, i) => {
+          const borderClass =
+            i == selectedBin
+              ? "border-teal-500 hover:border-teal-500"
+              : "border-gray-100";
           return (
             <div
-              className="mx-4 px-4 py-2 rounded-lg bg-gray-100 flex-shrink-0"
+              className={`cursor-pointer mx-4 my-2 px-4 py-2 rounded-lg bg-gray-100 flex-shrink-0 hover:bg-teal-300 hover:border-teal-300 box-content border-4 ${borderClass}`}
+              onClick={() => onSelectBin(i)}
               key={i}
             >
-              <p className="whitespace-nowrap font-bold">{`Box ${i + 1}:`}</p>
+              <p className="whitespace-nowrap font-bold">{`Bin #${i + 1}:`}</p>
               {Object.entries(bin).map(([itemId, count], j) => {
                 return (
                   <p

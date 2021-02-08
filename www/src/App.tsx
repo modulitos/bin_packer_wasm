@@ -8,14 +8,18 @@ function App() {
   console.log("All modules loaded");
 
   const [packedBins, setPackedBins] = useState<PackedBin[]>([]);
+  const [selectedBin, selectBin] = useState<number>(null);
 
   console.log("packedBins: ", JSON.stringify(packedBins, null, 2));
 
   return (
-    <div className="container max-w-full inline-grid gap-x-4 grid-cols-1 sm:grid-cols-2">
-      <ResultsVisualizer packedBins={packedBins} />
+    <div className="container max-w-full grid grid-cols-1 sm:grid-cols-2">
+      <ResultsVisualizer packedBins={packedBins} selectedBin={selectedBin} onSelectBin={selectBin}/>
       <Sidebar>
-        <Form onPack={setPackedBins} />
+        <Form onPack={(packedBins) => {
+          setPackedBins(packedBins);
+          selectBin(null)
+        }} />
       </Sidebar>
     </div>
   );

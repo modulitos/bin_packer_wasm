@@ -145,6 +145,7 @@ const Form: FC<FormProps> = ({ onPack }) => {
       //   "bin packer failed!!!",
       // );
 
+      console.log("packedBins:", packedBins)
       onPack(packedBins);
     } catch (error) {
       if (typeof error === "string" && error.startsWith("binpack error")) {
